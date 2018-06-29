@@ -257,9 +257,13 @@ namespace ICSharpCode.TextEditor
 			
 			hScrollBar.LargeChange = Math.Max(0, textArea.TextView.VisibleColumnCount - 1);
 			hScrollBar.SmallChange = Math.Max(0, (int)textArea.TextView.SpaceWidth);
-		}
-		
-		public void OptionsChanged()
+
+            vScrollBar.Visible = Document.TotalNumberOfLines > TextArea.TextView.VisibleLineCount;
+            hScrollBar.Visible = max > TextArea.TextView.VisibleColumnCount;
+
+        }
+
+        public void OptionsChanged()
 		{
 			textArea.OptionsChanged();
 			

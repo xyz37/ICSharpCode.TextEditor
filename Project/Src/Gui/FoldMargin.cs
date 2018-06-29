@@ -58,11 +58,11 @@ namespace ICSharpCode.TextEditor
 						g.FillRectangle(BrushRegistry.GetBrush(textArea.Enabled ? lineNumberPainterColor.BackgroundColor : SystemColors.InactiveBorder),
 						                markerRectangle);
 						
-						g.DrawLine(BrushRegistry.GetDotPen(lineNumberPainterColor.Color),
-						           base.drawingPosition.X,
-						           markerRectangle.Y,
-						           base.drawingPosition.X,
-						           markerRectangle.Bottom);
+						//g.DrawLine(BrushRegistry.GetDotPen(lineNumberPainterColor.Color),
+						//           base.drawingPosition.X,
+						//           markerRectangle.Y,
+						//           base.drawingPosition.X,
+						//           markerRectangle.Bottom);
 					} else {
 						g.FillRectangle(BrushRegistry.GetBrush(textArea.Enabled ? lineNumberPainterColor.BackgroundColor : SystemColors.InactiveBorder), markerRectangle);
 					}

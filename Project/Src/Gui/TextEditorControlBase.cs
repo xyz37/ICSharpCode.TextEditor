@@ -138,8 +138,9 @@ namespace ICSharpCode.TextEditor
 		/// <value>
 		/// If set to true the contents can't be altered.
 		/// </value>
-		[Browsable(false)]
-		public bool IsReadOnly {
+        [Category("Behavior")]
+        [DefaultValue(false)]
+		public bool ReadOnly {
 			get {
 				return Document.ReadOnly;
 			}

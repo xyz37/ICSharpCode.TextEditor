@@ -118,13 +118,15 @@ namespace ICSharpCode.TextEditor
             // http://community.icsharpcode.net/forums/t/9931.aspx
             // Is this really the best way to do this?
             Document.Insert(Document.TextLength, s);
-            if(refresh)
-                ActiveTextAreaControl.JumpTo(Document.TotalNumberOfLines);
+            if (refresh) {
+                ActiveTextAreaControl.JumpTo(Document.TotalNumberOfLines,
+                    Document.LineSegmentCollection[Document.TotalNumberOfLines - 1].Length);
+            }
             return this;
         }
 
         public TextEditorControl AppendLine(string s, bool refresh = true) {
-            return Append($"{s}{Environment.NewLine}", refresh);
+            return Append($"{Environment.NewLine}{s}", refresh);
         }
 
         public TextEditorControl Clear() {

@@ -227,9 +227,9 @@ namespace ICSharpCode.TextEditor.Document
 		
 		public void Insert(int offset, string text)
 		{
-			if (readOnly) {
-				return;
-			}
+			//if (readOnly) {
+			//	return;
+			//}
 			OnDocumentAboutToBeChanged(new DocumentEventArgs(this, offset, -1, text));
 			
 			textBufferStrategy.Insert(offset, text);
@@ -242,9 +242,9 @@ namespace ICSharpCode.TextEditor.Document
 		
 		public void Remove(int offset, int length)
 		{
-			if (readOnly) {
-				return;
-			}
+			//if (readOnly) {
+			//	return;
+			//}
 			OnDocumentAboutToBeChanged(new DocumentEventArgs(this, offset, length));
 			undoStack.Push(new UndoableDelete(this, offset, GetText(offset, length)));
 			

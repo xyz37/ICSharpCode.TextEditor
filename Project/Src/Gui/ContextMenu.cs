@@ -23,27 +23,27 @@ namespace ICSharpCode.TextEditor {
 
         void OnClickCut(object sender, EventArgs e) {
             new Cut().Execute(parent.TextArea);
-            parent.Focus();
+            parent.TextArea.Focus();
         }
 
         void OnClickUndo(object sender, EventArgs e) {
             parent.Undo();
-            parent.Focus();
+            parent.TextArea.Focus();
         }
 
         void OnClickCopy(object sender, EventArgs e) {
             new Copy().Execute(parent.TextArea);
-            parent.Focus();
+            parent.TextArea.Focus();
         }
 
         void OnClickPaste(object sender, EventArgs e) {
             new Paste().Execute(parent.TextArea);
-            parent.Focus();
+            parent.TextArea.Focus();
         }
 
         void OnSelectAll(object sender, EventArgs e) {
             new SelectWholeDocument().Execute(parent.TextArea);
-            parent.Focus();
+            parent.TextArea.Focus();
         }
 
 

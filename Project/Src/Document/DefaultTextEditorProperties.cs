@@ -30,7 +30,7 @@ namespace ICSharpCode.TextEditor.Document
 		public DefaultTextEditorProperties()
 		{
 			if (DefaultFont == null) {
-				DefaultFont = new Font("Courier New", 10);
+				DefaultFont = new Font("Consolas", 9.75F);
 			}
 			this.fontContainer = new FontContainer(DefaultFont);
 		}

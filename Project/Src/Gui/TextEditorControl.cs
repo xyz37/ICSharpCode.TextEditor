@@ -119,7 +119,7 @@ namespace ICSharpCode.TextEditor
             // Is this really the best way to do this?
             Document.Insert(Document.TextLength, s);
             if(refresh)
-                Refresh();
+                ActiveTextAreaControl.JumpTo(Document.TotalNumberOfLines);
             return this;
         }
 
@@ -127,9 +127,10 @@ namespace ICSharpCode.TextEditor
             return Append($"{s}{Environment.NewLine}", refresh);
         }
 
-        public void Clear() {
+        public TextEditorControl Clear() {
             Document.Remove(0, Document.TextLength);
             Refresh();
+            return this;
         }
 		
 		protected virtual void InitializeTextAreaControl(TextAreaControl newControl)

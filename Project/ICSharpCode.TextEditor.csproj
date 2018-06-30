@@ -71,6 +71,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\GlobalAssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Src\Document\DefaultDocument.cs" />
     <Compile Include="Src\Document\DocumentEventArgs.cs" />
     <Compile Include="Src\Document\DocumentFactory.cs" />
@@ -107,6 +112,12 @@
     <Compile Include="Src\Document\TextBufferStrategy\GapTextBufferStrategy.cs" />
     <Compile Include="Src\Document\TextBufferStrategy\ITextBufferStrategy.cs" />
     <Compile Include="Src\Document\TextBufferStrategy\StringTextBufferStrategy.cs" />
+    <Compile Include="Src\Gui\ContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Src\Gui\ContextMenu.Designer.cs">
+      <DependentUpon>ContextMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Src\Gui\HighlightStringConverter.cs" />
     <Compile Include="Src\Util\AugmentableRedBlackTree.cs" />
     <Compile Include="Src\Util\CheckedList.cs" />
@@ -203,12 +214,19 @@
     <Compile Include="Src\Document\BookmarkManager\Bookmark.cs" />
     <Compile Include="Src\Document\BookmarkManager\BookmarkEventHandler.cs" />
     <Compile Include="Configuration\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ASPX.xshd" />
     <EmbeddedResource Include="Resources\BAT-Mode.xshd" />
     <EmbeddedResource Include="Resources\CPP-Mode.xshd" />
     <EmbeddedResource Include="Resources\Coco-Mode.xshd" />
     <EmbeddedResource Include="Resources\CSharp-Mode.xshd" />
     <EmbeddedResource Include="Resources\HTML-Mode.xshd" />
+    <EmbeddedResource Include="Src\Gui\ContextMenu.resx">
+      <DependentUpon>ContextMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Resources\ICSharpCode.TextEditor.snk" />
     <EmbeddedResource Include="Resources\TextEditorControl.bmp" />
     <EmbeddedResource Include="Resources\Java-Mode.xshd" />
@@ -241,6 +259,15 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cutToolStripMenuItem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copyToolStripMenuItem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pasteToolStripMenuItem.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -115,7 +115,13 @@ namespace ICSharpCode.TextEditor
             Document.TextContentChanged += DocumentTextContentChanged;
 			Document.DocumentChanged += AdjustScrollBarsOnDocumentChange;
 			Document.UpdateCommited  += DocumentUpdateCommitted;
+
+            ContextMenuStrip = new ContextMenu(this);
 		}
+
+        public void Undo() {
+            motherTextEditorControl.Undo();
+        }
 		
 		protected override void Dispose(bool disposing)
 		{

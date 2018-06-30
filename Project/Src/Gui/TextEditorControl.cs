@@ -28,6 +28,7 @@ namespace ICSharpCode.TextEditor
 		TextAreaControl secondaryTextArea = null;
 		
 		PrintDocument   printDocument = null;
+        string highlighting;
 		
 		[Browsable(false)]
 		public PrintDocument PrintDocument {
@@ -61,8 +62,35 @@ namespace ICSharpCode.TextEditor
 		}
 		
 		public event EventHandler ActiveTextAreaControlChanged;
-		
-		public TextEditorControl()
+
+        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true)]
+        [Category("Behavior")]
+        [DefaultValue(true)]
+        public bool AutoHideScrollbars {
+            get {
+                return activeTextAreaControl.AutoHideScrollbars;
+            }
+            set {
+                activeTextAreaControl.AutoHideScrollbars = value;
+            }
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always), Browsable(true)]
+        [Category("Appearance")]
+        [Description("The Syntax Highlighting to use.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [TypeConverter(typeof(HighlightStringConverter))]
+        public string Highlighting {
+            get {
+                return highlighting;
+            }
+            set {
+                highlighting = value;
+                SetHighlighting(highlighting);
+            }
+        }
+
+        public TextEditorControl()
 		{
 			SetStyle(ControlStyles.ContainerControl, true);
 			
@@ -84,6 +112,24 @@ namespace ICSharpCode.TextEditor
 			Document.UpdateCommited += new EventHandler(CommitUpdateRequested);
 			OptionsChanged();
 		}
+
+        public TextEditorControl Append(string s, bool refresh = true) {
+            // http://community.icsharpcode.net/forums/t/9931.aspx
+            // Is this really the best way to do this?
+            Document.Insert(Document.TextLength, s);
+            if(refresh)
+                Refresh();
+            return this;
+        }
+
+        public TextEditorControl AppendLine(string s, bool refresh = true) {
+            return Append($"{s}{Environment.NewLine}", refresh);
+        }
+
+        public void Clear() {
+            Document.Remove(0, Document.TextLength);
+            Refresh();
+        }
 		
 		protected virtual void InitializeTextAreaControl(TextAreaControl newControl)
 		{

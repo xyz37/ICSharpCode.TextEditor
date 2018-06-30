@@ -29,6 +29,7 @@ namespace ICSharpCode.TextEditor
 		TextArea   textArea;
 		bool       doHandleMousewheel = true;
 		bool       disposed;
+        bool autoHideScrollbars = true;
 		
 		public TextArea TextArea {
 			get {
@@ -76,6 +77,16 @@ namespace ICSharpCode.TextEditor
 				return hScrollBar;
 			}
 		}
+
+        public bool AutoHideScrollbars {
+            get {
+                return autoHideScrollbars;
+            }
+            set {
+                autoHideScrollbars = value;
+                AdjustScrollBars();
+            }
+        }
 		
 		public bool DoHandleMousewheel {
 			get {
@@ -99,8 +110,9 @@ namespace ICSharpCode.TextEditor
 			hScrollBar.ValueChanged += new EventHandler(HScrollBarValueChanged);
 			Controls.Add(this.hScrollBar);
 			ResizeRedraw = true;
-			
-			Document.TextContentChanged += DocumentTextContentChanged;
+            AutoHideScrollbars = true;
+
+            Document.TextContentChanged += DocumentTextContentChanged;
 			Document.DocumentChanged += AdjustScrollBarsOnDocumentChange;
 			Document.UpdateCommited  += DocumentUpdateCommitted;
 		}
@@ -158,16 +170,19 @@ namespace ICSharpCode.TextEditor
 				y = hRuler.Bounds.Bottom;
 				h = hRuler.Bounds.Height;
 			}
-			
+
+            var vScrollBarWidth = vScrollBar.Visible ? SystemInformation.HorizontalScrollBarArrowWidth : 0;
+            var hScrollBarHeight = hScrollBar.Visible ? SystemInformation.VerticalScrollBarArrowHeight : 0;
 			textArea.Bounds = new Rectangle(0, y,
-			                                Width - SystemInformation.HorizontalScrollBarArrowWidth,
-			                                Height - SystemInformation.VerticalScrollBarArrowHeight - h);
+			                                Width - vScrollBarWidth,
+			                                Height - hScrollBarHeight - h);
 			SetScrollBarBounds();
 		}
 		
 		public void SetScrollBarBounds()
 		{
-			vScrollBar.Bounds = new Rectangle(textArea.Bounds.Right, 0, SystemInformation.HorizontalScrollBarArrowWidth, Height - SystemInformation.VerticalScrollBarArrowHeight);
+            var vHeight = Height - (hScrollBar.Visible ? SystemInformation.VerticalScrollBarArrowHeight : 0);
+			vScrollBar.Bounds = new Rectangle(textArea.Bounds.Right, 0, SystemInformation.HorizontalScrollBarArrowWidth, vHeight);
 			hScrollBar.Bounds = new Rectangle(0,
 			                                  textArea.Bounds.Bottom,
 			                                  Width - SystemInformation.HorizontalScrollBarArrowWidth,
@@ -258,8 +273,19 @@ namespace ICSharpCode.TextEditor
 			hScrollBar.LargeChange = Math.Max(0, textArea.TextView.VisibleColumnCount - 1);
 			hScrollBar.SmallChange = Math.Max(0, (int)textArea.TextView.SpaceWidth);
 
-            vScrollBar.Visible = Document.TotalNumberOfLines > TextArea.TextView.VisibleLineCount;
-            hScrollBar.Visible = max > TextArea.TextView.VisibleColumnCount;
+            if (AutoHideScrollbars) {
+                var vVisible = Document.TotalNumberOfLines > TextArea.TextView.VisibleLineCount - 1;
+                var hVisible = max > TextArea.TextView.VisibleColumnCount;
+                var changed = vScrollBar.Visible != vVisible || hScrollBar.Visible != hVisible;
+
+                vScrollBar.Visible = vVisible;
+                hScrollBar.Visible = hVisible;
+                if (changed)
+                    ResizeTextArea();
+            } else  {
+                vScrollBar.Visible = true;
+                hScrollBar.Visible = true;
+            }
 
         }
 

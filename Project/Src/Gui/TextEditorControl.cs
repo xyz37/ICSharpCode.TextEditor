@@ -80,13 +80,14 @@ namespace ICSharpCode.TextEditor
         [Description("The Syntax Highlighting to use.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [TypeConverter(typeof(HighlightStringConverter))]
+        [DefaultValue("C#")]
         public string Highlighting {
             get {
                 return highlighting;
             }
             set {
                 highlighting = value;
-                SetHighlighting(highlighting);
+                SetHighlighting(highlighting ?? "Default");
             }
         }
 

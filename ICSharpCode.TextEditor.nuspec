@@ -22,6 +22,6 @@
     <tags>ICSharpCode.TextEditor, SharpDevelop</tags>
   </metadata>
   <files>
-    <file src="Project\bin\Release\ICSharpCode.TextEditor.dll" target="lib\net45\ICSharpCode.TextEditor.dll" />
+    <file src="ICSharpCode.TextEditor\bin\Release\ICSharpCode.TextEditor.dll" target="lib\net45\ICSharpCode.TextEditor.dll" />
   </files>
 </package>

@@ -44,9 +44,11 @@ namespace ICSharpCode.TextEditor
 				return;
 			}
 			HighlightColor lineNumberPainterColor = textArea.Document.HighlightingStrategy.GetColorFor("LineNumbers");
-			
-			
-			for (int y = 0; y < (DrawingPosition.Height + textArea.TextView.VisibleLineDrawingRemainder) / textArea.TextView.FontHeight + 1; ++y) {
+            HighlightColor defaultColor = textArea.Document.HighlightingStrategy.GetColorFor("Default");
+
+
+
+            for (int y = 0; y < (DrawingPosition.Height + textArea.TextView.VisibleLineDrawingRemainder) / textArea.TextView.FontHeight + 1; ++y) {
 				Rectangle markerRectangle = new Rectangle(DrawingPosition.X,
 				                                          DrawingPosition.Top + y * textArea.TextView.FontHeight - textArea.TextView.VisibleLineDrawingRemainder,
 				                                          DrawingPosition.Width,
@@ -55,15 +57,18 @@ namespace ICSharpCode.TextEditor
 				if (rect.IntersectsWith(markerRectangle)) {
 					// draw dotted separator line
 					if (textArea.Document.TextEditorProperties.ShowLineNumbers) {
-						g.FillRectangle(BrushRegistry.GetBrush(textArea.Enabled ? lineNumberPainterColor.BackgroundColor : SystemColors.InactiveBorder),
-						                markerRectangle);
-						
-						//g.DrawLine(BrushRegistry.GetDotPen(lineNumberPainterColor.Color),
-						//           base.drawingPosition.X,
-						//           markerRectangle.Y,
-						//           base.drawingPosition.X,
-						//           markerRectangle.Bottom);
-					} else {
+                        g.FillRectangle(BrushRegistry.GetBrush(defaultColor.HasBackground ? defaultColor.BackgroundColor : textArea.BackColor),
+                                        markerRectangle);
+
+                        //g.FillRectangle(BrushRegistry.GetBrush(textArea.Enabled ? lineNumberPainterColor.BackgroundColor : SystemColors.InactiveBorder),
+                        //                markerRectangle);
+
+                        //g.DrawLine(BrushRegistry.GetDotPen(lineNumberPainterColor.Color),
+                        //           base.drawingPosition.X,
+                        //           markerRectangle.Y,
+                        //           base.drawingPosition.X,
+                        //           markerRectangle.Bottom);
+                    } else {
 						g.FillRectangle(BrushRegistry.GetBrush(textArea.Enabled ? lineNumberPainterColor.BackgroundColor : SystemColors.InactiveBorder), markerRectangle);
 					}
 					

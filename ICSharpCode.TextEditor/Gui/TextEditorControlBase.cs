@@ -476,7 +476,10 @@ namespace ICSharpCode.TextEditor
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
 		[Description("The base font of the text area. No bold or italic fonts can be used because bold/italic is reserved for highlighting purposes.")]
-		public override Font Font {
+        [Bindable(true)]
+        [Category("Appearance")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        public override Font Font {
 			get {
 				return document.TextEditorProperties.Font;
 			}

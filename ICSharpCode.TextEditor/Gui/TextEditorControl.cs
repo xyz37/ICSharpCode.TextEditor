@@ -126,7 +126,7 @@ namespace ICSharpCode.TextEditor
         }
 
         public TextEditorControl AppendLine(string s, bool refresh = true) {
-            return Append($"{Environment.NewLine}{s}", refresh);
+            return Append($"{(Document.TextLength > 0 ? Environment.NewLine : string.Empty)}{s}", refresh);
         }
 
         public TextEditorControl Clear() {

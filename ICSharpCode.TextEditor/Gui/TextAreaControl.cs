@@ -461,9 +461,10 @@ namespace ICSharpCode.TextEditor
 			JumpTo(line, text.Length - text.TrimStart().Length);
 		}
 		
-		public void JumpTo(int line, int column)
+		public void JumpTo(int line, int column, bool dontFocus = false)
 		{
-			textArea.Focus();
+            if(!dontFocus)
+    			textArea.Focus();
 			textArea.SelectionManager.ClearSelection();
 			textArea.Caret.Position = new TextLocation(column, line);
 			textArea.SetDesiredColumn();

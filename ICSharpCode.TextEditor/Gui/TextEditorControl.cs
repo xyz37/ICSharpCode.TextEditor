@@ -120,7 +120,7 @@ namespace ICSharpCode.TextEditor
             Document.Insert(Document.TextLength, s);
             if (refresh) {
                 ActiveTextAreaControl.JumpTo(Document.TotalNumberOfLines,
-                    Document.LineSegmentCollection[Document.TotalNumberOfLines - 1].Length);
+                    Document.LineSegmentCollection[Document.TotalNumberOfLines - 1].Length, true);
             }
             return this;
         }

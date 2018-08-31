@@ -480,14 +480,16 @@ namespace ICSharpCode.TextEditor
         [Category("Appearance")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         public override Font Font {
-			get {
-				return document.TextEditorProperties.Font;
-			}
-			set {
-				document.TextEditorProperties.Font = value;
-				OptionsChanged();
-			}
-		}
+            get {
+                return document.TextEditorProperties.Font;
+            }
+            set {
+                // https://stackoverflow.com/a/6916468/3700562
+                base.Font = value;
+                document.TextEditorProperties.Font = value;
+                OptionsChanged();
+            }
+        }
 		
 		#endregion
 		public abstract TextAreaControl ActiveTextAreaControl {

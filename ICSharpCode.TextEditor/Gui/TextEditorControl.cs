@@ -22,13 +22,15 @@ namespace ICSharpCode.TextEditor
 	[ToolboxItem(true)]
 	public class TextEditorControl : TextEditorControlBase
 	{
+		private const string DEFAULT_HIGHLIGHTING = "C#";
+
 		protected Panel textAreaPanel     = new Panel();
 		TextAreaControl primaryTextArea;
 		Splitter        textAreaSplitter  = null;
 		TextAreaControl secondaryTextArea = null;
 		
 		PrintDocument   printDocument = null;
-        string highlighting;
+        string highlighting = DEFAULT_HIGHLIGHTING;
 		
 		[Browsable(false)]
 		public PrintDocument PrintDocument {
@@ -80,14 +82,14 @@ namespace ICSharpCode.TextEditor
         [Description("The Syntax Highlighting to use.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [TypeConverter(typeof(HighlightStringConverter))]
-        [DefaultValue("C#")]
+        [DefaultValue(DEFAULT_HIGHLIGHTING)]
         public string Highlighting {
             get {
                 return highlighting;
             }
             set {
                 highlighting = value;
-                SetHighlighting(highlighting ?? "Default");
+                SetHighlighting(highlighting ?? DEFAULT_HIGHLIGHTING);
             }
         }
 
@@ -146,7 +148,19 @@ namespace ICSharpCode.TextEditor
 				secondaryTextArea.OptionsChanged();
 			}
 		}
-		
+
+		protected override void OnTextChanged(EventArgs e)
+		{
+			if (DesignMode == true)
+			{
+				SetHighlighting(Highlighting);
+			}
+			else
+			{
+				base.OnTextChanged(e);				
+			}
+		}
+
 		public void Split()
 		{
 			if (secondaryTextArea == null) {

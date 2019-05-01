@@ -1,4 +1,4 @@
-// <file>
+﻿// <file>
 //     <copyright see="prj:///doc/copyright.txt"/>
 //     <license see="prj:///doc/license.txt"/>
 //     <owner name="none" email=""/>
@@ -18,6 +18,8 @@ namespace ICSharpCode.TextEditor.Document
 	
 	public class DefaultTextEditorProperties : ITextEditorProperties
 	{
+		public const string DEFAULT_FONT_FAMILY = "Consolas, 9.75pt";
+
 		int                   tabIndent             = 4;
 		int                   indentationSize       = 4;
 		IndentStyle           indentStyle           = IndentStyle.Smart;
@@ -30,7 +32,7 @@ namespace ICSharpCode.TextEditor.Document
 		public DefaultTextEditorProperties()
 		{
 			if (DefaultFont == null) {
-				DefaultFont = new Font("Consolas", 9.75F);
+				DefaultFont = new FontConverter().ConvertFrom(DEFAULT_FONT_FAMILY) as Font;
 			}
 			this.fontContainer = new FontContainer(DefaultFont);
 		}

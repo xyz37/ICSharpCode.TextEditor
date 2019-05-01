@@ -479,7 +479,8 @@ namespace ICSharpCode.TextEditor
         [Bindable(true)]
         [Category("Appearance")]
         [EditorBrowsable(EditorBrowsableState.Always)]
-        public override Font Font {
+		[DefaultValue(typeof(Font), DefaultTextEditorProperties.DEFAULT_FONT_FAMILY)]
+		public override Font Font {
             get {
                 return document.TextEditorProperties.Font;
             }
